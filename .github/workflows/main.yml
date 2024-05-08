@@ -18,7 +18,13 @@ jobs:
       with:
         distribution: 'temurin' # See 'Supported distributions' for available options
         java-version: '11'
-        
+    - name: Get Server IP
+      id: get_ip
+      run: echo "::set-output name=ip::$(curl -s https://api.ipify.org)"
+
+    - name: Print IP Address
+      run: echo "Server IP Address: ${{ steps.get_ip.outputs.ip }}"
+      
     - name: Compile
       run: mvn compile
 
